@@ -8,7 +8,7 @@ export default NextAuth({
 			clientSecret: process.env.GOOGLE_CLIENT_SECRET,
 			authorizationUrl:
 				"https://accounts.google.com/o/oauth2/v2/auth?prompt=consent&access_type=offline&response_type=code",
-			scope: "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/youtube.readonly",
+			scope: "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/fitness.heart_rate.read",
 		}),
 	],
 	jwt: {
@@ -17,10 +17,9 @@ export default NextAuth({
 	secret: process.env.SECRET,
 	callbacks: {
 		async jwt(token, user, account, profile, isNewUser) {
-			// console.log({ profile });
 			if (account?.accessToken) {
 				token.accessToken = account.accessToken;
-				//console.log("token.accessToken", token.accessToken);
+				console.log("ACCESSTOKEN=", token.accessToken); // <--- This is the Google FIT API accessToken
 			}
 			return token;
 		},
