@@ -11,3 +11,5 @@ npm i
 
 npm run dev
 ```
+
+Demo made using [this tutorial](https://blog.srij.dev/nextauth-google-access-token) [(repo)](https://github.com/srijans38/nextauth-youtube-test)

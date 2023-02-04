@@ -6,11 +6,14 @@ const secret = process.env.SECRET;
 export default async (req, res) => {
 	const token = await getToken({ req, secret, encryption: true });
 
-	const { data } = await axios.get(`https://www.googleapis.com/fitness/v1/users/me/dataSources`, {
-		headers: {
-			Authorization: `Bearer ${token.accessToken}`,
-		},
-	});
+	const { data } = await axios.get(
+		`https://www.googleapis.com/fitness/v1/users/me/dataSources/derived:com.google.heart_rate.bpm:com.google.android.gms:merge_heart_rate_bpm`,
+		{
+			headers: {
+				Authorization: `Bearer ${token.accessToken}`,
+			},
+		}
+	);
 
 	console.log(data);
 
