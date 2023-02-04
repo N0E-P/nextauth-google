@@ -29,7 +29,7 @@ export default function Home() {
 			<h1>NextAuth Google test</h1>
 
 			{!session ? (
-				<button onClick={() => signIn()}>Sign In</button>
+				<button onClick={() => signIn("google")}>Sign In</button>
 			) : (
 				<>
 					<button onClick={() => signOut()}>Sign Out</button>
