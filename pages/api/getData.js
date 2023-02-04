@@ -5,7 +5,7 @@ const secret = process.env.SECRET;
 export default async (req, res) => {
 	// Set the start date to 7 day ago
 	const startDate = new Date();
-	startDate.setDate(startDate.getDate() - 7);
+	startDate.setDate(startDate.getDate() - 1);
 
 	// Set the end date to the current date
 	const endDate = new Date();
@@ -25,12 +25,12 @@ export default async (req, res) => {
 		body: JSON.stringify({
 			aggregateBy: [
 				{
-					dataTypeName: "com.google.heart_rate.bpm",
+					dataTypeName: "com.google.heart_rate.summary",
 					dataSourceId:
 						"derived:com.google.heart_rate.bpm:com.google.android.gms:merge_heart_rate_bpm",
 				},
 			],
-			bucketByTime: { durationMillis: 86400000 }, // will look at the data for each minutes : 60000 : 86400000
+			bucketByTime: { durationMillis: 60000 }, // will look at the data for each minutes : 60000 : 86400000
 			startTimeMillis: startDate.getTime(),
 			endTimeMillis: endDate.getTime(),
 		}),
@@ -54,10 +54,6 @@ export default async (req, res) => {
 
 			// Return the data
 			if (heartRateData.length === 0) {
-				// heartRateData.push({
-				// 	date: new Date(),
-				// 	heartRate: 0,
-				// });
 				res.status(200).json(data);
 			} else {
 				res.status(200).json(heartRateData);
