@@ -15,7 +15,6 @@ export default function Home() {
 			console.log(data);
 			/*
 			setList(
-				//data.toString()
         data.map((sub) => ({
           id: sub.id,
           title: sub.snippet.title,
@@ -38,7 +37,6 @@ export default function Home() {
 					<button onClick={() => setLoading(!loading)} disabled={loading}>
 						Get my health data
 					</button>
-					{loading && <p>Loading...</p>}
 					<ul>
 						{list.map((sub) => (
 							<li key={sub.id}>{sub.title}</li>
