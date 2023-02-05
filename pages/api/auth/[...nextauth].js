@@ -47,6 +47,7 @@ export default NextAuth({
 });
 
 // Takes a token, and returns a new token with updated `accessToken` and `accessTokenExpires`.
+//https://next-auth.js.org/v3/tutorials/refresh-token-rotation
 async function refreshAccessToken(token) {
 	try {
 		const url =

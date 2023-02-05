@@ -1,6 +1,5 @@
 import { signIn, signOut, useSession } from "next-auth/client";
 import { useState, useEffect } from "react";
-import axios from "axios";
 
 export default function Home() {
 	const [session] = useSession();
@@ -10,11 +9,17 @@ export default function Home() {
 	// Get data from Google FIT API
 	useEffect(async () => {
 		if (loading) {
-			const { data } = await axios.get("/api/getData", {
-				withCredentials: true,
-			});
-			setList(data);
-			setLoading(false);
+			fetch("/api/getData", {
+				credentials: "include",
+			})
+				.then((response) => response.json())
+				.then((data) => {
+					setList(data);
+					setLoading(false);
+				})
+				.catch((error) => {
+					console.error(error);
+				});
 		}
 	}, [loading]);
 
