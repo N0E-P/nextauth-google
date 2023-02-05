@@ -18,6 +18,13 @@ export default function Home() {
 		}
 	}, [loading]);
 
+	// If there is an error, force sign in to hopefully resolve it
+	useEffect(() => {
+		if (session?.error === "RefreshAccessTokenError") {
+			signIn();
+		}
+	}, [session]);
+
 	return (
 		<div>
 			<h1>Google login test</h1>
@@ -31,15 +38,8 @@ export default function Home() {
 						width="100px"
 						height="100px"
 					/>
-
 					<p>Welcome {session.user.name}!</p>
 					<p>Your email is {session.user.email}</p>
-					<p>
-						Your session expires the{" "}
-						{new Date(session.expires).toLocaleString("en-GB", {
-							timeZone: "UTC",
-						})}
-					</p>
 
 					<button onClick={() => setLoading(!loading)} disabled={loading}>
 						Get my health data
