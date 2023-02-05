@@ -20,7 +20,6 @@ export default function Home() {
 	return (
 		<div>
 			<h1>NextAuth Google test</h1>
-
 			{!session ? (
 				<button onClick={() => signIn("google")}>Sign In</button>
 			) : (
@@ -30,13 +29,11 @@ export default function Home() {
 					<button onClick={() => setLoading(!loading)} disabled={loading}>
 						Get my health data
 					</button>
-					<ul>
-						{list.map((value) => (
-							<li key={value.date}>
-								{value.date}: {value.heartRate}
-							</li>
-						))}
-					</ul>
+					{list.map((value) => (
+						<li key={value.date}>
+							{value.date}: {value.heartRate}
+						</li>
+					))}
 				</>
 			)}
 		</div>
