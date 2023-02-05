@@ -7,6 +7,7 @@ export default function Home() {
 	const [loading, setLoading] = useState(false);
 	const [list, setList] = useState([]);
 
+	// Get data from Google FIT API
 	useEffect(async () => {
 		if (loading) {
 			const { data } = await axios.get("/api/getData", {
@@ -19,13 +20,27 @@ export default function Home() {
 
 	return (
 		<div>
-			<h1>NextAuth Google test</h1>
+			<h1>Google login test</h1>
 			{!session ? (
 				<button onClick={() => signIn("google")}>Sign In</button>
 			) : (
 				<>
-					<button onClick={() => signOut()}>Sign Out</button>
-					<pre>{JSON.stringify(session, null, 2)}</pre>
+					<img
+						onClick={() => signOut()}
+						src={session.user.image}
+						width="100px"
+						height="100px"
+					/>
+
+					<p>Welcome {session.user.name}!</p>
+					<p>Your email is {session.user.email}</p>
+					<p>
+						Your session expires the{" "}
+						{new Date(session.expires).toLocaleString("en-GB", {
+							timeZone: "UTC",
+						})}
+					</p>
+
 					<button onClick={() => setLoading(!loading)} disabled={loading}>
 						Get my health data
 					</button>
