@@ -12,14 +12,7 @@ export default function Home() {
 			const { data } = await axios.get("/api/getData", {
 				withCredentials: true,
 			});
-			console.log(data);
-			/*
-			setList(
-        data.map((sub) => ({
-          id: sub.id,
-          title: sub.snippet.title,
-        }))
-			);*/
+			setList(data);
 			setLoading(false);
 		}
 	}, [loading]);
@@ -38,8 +31,10 @@ export default function Home() {
 						Get my health data
 					</button>
 					<ul>
-						{list.map((sub) => (
-							<li key={sub.id}>{sub.title}</li>
+						{list.map((value) => (
+							<li key={value.date}>
+								{value.date}: {value.heartRate}
+							</li>
 						))}
 					</ul>
 				</>

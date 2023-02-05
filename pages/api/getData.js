@@ -41,20 +41,25 @@ export default async (req, res) => {
 			var heartRateData = [];
 
 			// Loop through the data and get the heart rate
-			for (var b = 0; b < data?.bucket?.length; b++) {
-				if (data.bucket[b].dataset[0].point.length > 0) {
+			for (var i = 0; i < data?.bucket?.length; i++) {
+				if (data.bucket[i].dataset[0].point.length > 0) {
+					// Convert the date to a readable format
+					var date = new Date(parseInt(data.bucket[i].startTimeMillis, 10));
+					date = date.toLocaleString("en-GB", {
+						timeZone: "UTC",
+					});
+
+					// Add the data to the array
 					heartRateData.push({
-						date: new Date(parseInt(data.bucket[b].startTimeMillis, 10)),
-						heartRate: data.bucket[b].dataset[0].point[0].value[0].fpVal,
+						date,
+						heartRate: data.bucket[i].dataset[0].point[0].value[0].fpVal,
 					});
 				}
 			}
 
-			console.log(heartRateData);
-
 			// Return the data
 			if (heartRateData.length === 0) {
-				res.status(200).json(data);
+				res.status(404).json({ error: "No data found" });
 			} else {
 				res.status(200).json(heartRateData);
 			}
